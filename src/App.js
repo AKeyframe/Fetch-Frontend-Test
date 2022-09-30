@@ -4,11 +4,11 @@ import Main from './pages/main.js'
 
 function App() {
   return (
-    <body className="App">
+    <div className="App">
       <Routes>
         <Route path='/' element={<Main />}/>
       </Routes> 
-    </body>
+    </div>
   );
 }
 

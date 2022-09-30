@@ -1,0 +1,21 @@
+
+
+main{
+    display: flex;
+    justify-content: center;
+    
+
+    .form{
+        display: flex;
+        flex-direction: column;
+
+        background-color: lightcyan;
+        border-radius: 5%;
+
+        margin-top: 100px;
+        padding: 15px;
+        
+       
+    }
+    
+}

@@ -1,8 +1,33 @@
 
 
-.TextInput{
-    display: flex;
-
+.TextInput, .DropInput{
+    font-size: 20px;
     margin: 10px;
-    padding: 5px;
+   
+    label {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: center;
+              
+    }
+
+    input, select{
+        height: 20px;
+        width: 175px;
+
+        box-sizing: content-box;
+        margin-left: 10px;
+    }
+
+    select{
+        height: 24px;
+        width: 180px;
+    }
+
+    
+
+    p{
+        margin: 0px 10px 0px 0px;
+    }
 }
