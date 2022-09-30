@@ -1,8 +1,12 @@
 import '../App.scss'
 import './css/main.scss'
 import { useState } from 'react'
-import TextInput from '../components/TextInput'
+
+import TextInput from '../components/TextInput';
+import PassInput from '../components/PassInput';
 import DropInput from '../components/DropInput';
+
+import { getOccAndStates, submitCompletedForm } from '../services/apiServices';
 
 // import { Link } from "react-router-dom";
 
@@ -25,33 +29,38 @@ export default function Main(props){
 
 
     function handleChange(e){
-        
         setForm(prev => ({
             ...prev,
             [e.target.name]: e.target.value
         }))
-    
+    }
 
-        
+    function checkForm(){
+        //Check the form for errors
+
+        handleSubmit()
+    }
+
+    function handleSubmit(){
+        //Submit the form via post request in services
     }
 
     return(
         <main>
+            <form onSubmit={checkForm}>
+            <img src='fetch-frontend-test.png' 
+                 alt='Fetch Frontend Test' 
+                 width='360px' height= '110px'/>
+
             <div className="form">
                 <TextInput  DisplayName='Email'
                             formName='email'
                             form={form}
                             handleChange= {handleChange}/>
 
-                <TextInput  DisplayName='Password'
+                <PassInput  DisplayName='Password'
                             formName='pw'
                             pw="true"
-                            form={form}
-                            handleChange= {handleChange}/>
-
-                <TextInput  DisplayName='Confirm Password'
-                            formName='pwc'
-                            pw='true'
                             form={form}
                             handleChange= {handleChange}/>
 

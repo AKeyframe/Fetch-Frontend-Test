@@ -1,6 +1,6 @@
 
 
-.TextInput, .DropInput{
+.TextInput, .PassInput, .DropInput{
     font-size: 20px;
     margin: 10px;
    
@@ -10,6 +10,10 @@
         justify-content: flex-end;
         align-items: center;
               
+    }
+
+    #pwc{
+        margin-top: 20px;
     }
 
     input, select{

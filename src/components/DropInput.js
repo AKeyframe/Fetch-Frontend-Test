@@ -7,7 +7,7 @@ export default function DropInput(props){
     return(
         <div className='DropInput'>
             <label> {props.DisplayName}:
-                <select name='occupation'
+                <select name={props.formName}
                         value={props.form[props.formName]}
                         onChange={props.handleChange}>
 
