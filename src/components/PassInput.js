@@ -17,6 +17,24 @@ export default function PassImport(props){
         }
     }
 
+    function displayErrors(){
+        if(props.passErrors.length === 0) return;
+
+        return(
+            <div className= 'errors'>
+                <div className= 'passErrors'>
+                    <p>Your password must:</p>
+                    <ul id='passErrorList'>
+                        {props.passErrors.map(err => (
+                            <li>{err}</li>
+                        ))}
+                    </ul>    
+                    
+                </div>
+            </div>
+        );
+    }
+
    
     return(
         <div className="TextInput">
@@ -41,6 +59,10 @@ export default function PassImport(props){
                         onChange={props.handleChange}                
                 />
             </label>
+
+            {displayErrors()}
+            
+
         </div>
     );
 }
