@@ -19,7 +19,7 @@
     }
 
     input, select{
-        height: 20px;
+        height: 22px;
         width: 175px;
 
         box-sizing: content-box;
@@ -35,18 +35,15 @@
 
     
 
-    p{
-        margin: 0px 10px 0px 0px;
-    }
 
     .defInput, .defInput:focus {
         border: 1px solid black;
     }
     
     .validInput{
-        border-color: greenyellow;
+        border-color: rgb(3, 203, 3);
         border-radius: 5px;
-        outline-color: green;
+        outline-color: darkgreen;
     }
     
     .badInput, .badInput:focus{
@@ -54,4 +51,27 @@
         outline-color: darkred;
     }
 }
+
+
+button{
+    color: #f8a619;
+    font-size: 20px;
+    font-style: bold;
+
+    width: 200px;
+    height: 40px;
+    border: 1px solid #f8a619;
+    border-radius: 8px;
+    background-color: #2f0c38;
+
+    
+    margin: auto;
+    margin-top: 25px;
+}
+
+button:disabled{
+    opacity: 45%;
+}
+    
+
 
