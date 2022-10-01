@@ -8,7 +8,7 @@ export default function TextInput(props){
         return(
             <div className="TextInput">
                 <label> {props.DisplayName}:
-                    <input  type='text' 
+                    <input  type= {props.email==='true' ? 'email' :'text'} 
                             placeholder={props.DisplayName} 
                             name={props.formName}
                             value={props.form[props.formName]} 

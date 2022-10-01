@@ -35,3 +35,19 @@
         margin: 0px 10px 0px 0px;
     }
 }
+
+.defInput, .defInput:focus{
+    border-color: initial;
+    border-width: initial;
+}
+
+.validInput, .validInput:focus{
+    border-color: greenyellow;
+    
+    outline-color: green;
+}
+
+.badInput, .badInput:focus{
+    border-color: lightcoral;
+    outline-color: darkred;
+}
