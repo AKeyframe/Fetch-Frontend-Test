@@ -25,8 +25,8 @@ export default function PassImport(props){
                 <div className= 'passErrors'>
                     <p>Your password must:</p>
                     <ul id='passErrorList'>
-                        {props.passErrors.map(err => (
-                            <li>{err}</li>
+                        {props.passErrors.map((err, i) => (
+                            <li key={i}>{err}</li>
                         ))}
                     </ul>    
                     

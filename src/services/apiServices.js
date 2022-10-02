@@ -1,6 +1,6 @@
 
 
-const URL = '';
+const URL = 'https://frontend-take-home.fetchrewards.com/form';
 
 
 const getOccAndStates = async () => {

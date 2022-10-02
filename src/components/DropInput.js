@@ -12,7 +12,11 @@ export default function DropInput(props){
                         onChange={props.handleChange}>
 
                     <option value='0'>{props.placeholder}</option>
-                    <option value='1'>We'll get this from a map()</option>
+                    {props.options.map((opt, i) => (
+                        <option value={i+1} key={i}>{
+                            props.formName === 'state' ? opt.name : opt
+                        }</option>
+                    ))}
                 </select>
             </label>
         </div>

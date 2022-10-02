@@ -1,6 +1,7 @@
 import '../App.scss'
 import './css/main.scss'
-import { useState } from 'react'
+import { useState, useEffect } from 'react';
+// import { Link } from "react-router-dom";
 
 //components
 import TextInput from '../components/TextInput';
@@ -8,9 +9,9 @@ import PassInput from '../components/PassInput';
 import DropInput from '../components/DropInput';
 import SignupButton from '../components/SignupButton';
 
+//Services
 import { getOccAndStates, submitCompletedForm } from '../services/apiServices';
 
-// import { Link } from "react-router-dom";
 
 export default function Main(props){
     
@@ -18,47 +19,53 @@ export default function Main(props){
     const [passErrors, setPassErrors] = useState([]);
     const [validForm, setValidForm] = useState(false);
     
-
-
     const [form, setForm] = useState({
         email: '',
         pw: '',
         pwc: '',
         fullName: '',
-        state: '',
-        occupation: ''
+        state: '0',
+        occupation: '0'
     });
 
     //Temp
     const [options, setOptions] = useState({
         occupations: [],
         states: []
-    })
+    });
 
+    useEffect(() => {
+        async function updateDropdowns(){
+            const data = await getOccAndStates();
+            setOptions(
+                {occupations: [...data.occupations], 
+                 states:[...data.states]});
+        }
 
+        updateDropdowns()
+    }, []);
+
+    useEffect(() => {
+        checkForm();
+    }, [form])
+
+    
     function handleChange(e){
-        
         if(e.target.name === 'pw' || e.target.name === 'pwc'){
             handlePassword(e);
         }
-
 
         setForm(prev => ({
             ...prev,
             [e.target.name]: e.target.value
         }))
-
-        checkForm(e)
     }
 
 
     function handlePassword(e){
-
         //Check which password field the user used
         if(e.target.name === 'pw'){
             
-
-
             //Check if the pass is valid
             if(e.target.value !== '' && (e.target.value === form.pwc)){
                 //Check password requirements
@@ -88,7 +95,7 @@ export default function Main(props){
                 }
 
 
-            } else {
+            } else { 
                 if(validPass === true){
                     setValidPass(false);
                 } else {
@@ -154,21 +161,34 @@ export default function Main(props){
                 
             } 
         } 
-    }
+    }//handlePassword()
 
 
 
-    function checkForm(e){
-        console.log('target: '+e.target.name)
-        console.log('value: '+e.target.value)
-        console.log('formPW: '+form.pw)
-        console.log('formPWC: '+form.pwc)
+    function checkForm(){
+        if(form.occupation !== '0' && form.state !== '0'){
+            if(validPass){
+                if(form.email !==''){ //Email validation in handleSubmit()
+                    if(form.fullName !== ''){
+                        setValidForm(true);
+                    }
+                }
+            }
+        }
+    }//checkForm()
 
-        //Check the form for error
-    }
+    function handleSubmit(e){
+        e.preventDefault(); 
+        //Add email validation code
 
-    function handleSubmit(){
-        //Submit the form via post request in services
+        const submission = {name: form.fullName,
+                            email: form.email,
+                            password: form.pw,
+                            occupation: form.occupation,
+                            state: form.state
+        }
+
+        console.log(submission);
     }
 
     return(
@@ -178,7 +198,6 @@ export default function Main(props){
                  width='360px' height= '110px'/>
 
             <form onSubmit={handleSubmit}>
-                
                 <div className="form">
                     <TextInput  DisplayName='Email'
                                 formName='email'
@@ -217,7 +236,5 @@ export default function Main(props){
                 </div>
             </form>
         </main>
-    )
-
-
-}
+    )// return
+}// main()
