@@ -12,8 +12,11 @@ export default function DropInput(props){
 
                     <option value='0'>{props.placeholder}</option>
                     {props.options.map((opt, i) => (
-                        <option value={i+1} key={i}>{
-                            props.formName === 'state' ? opt.name : opt
+                        <option 
+                            key={i}
+                            value={props.formName === 'state' ? opt.name : opt}
+                        >    
+                            {props.formName === 'state' ? opt.name : opt
                         }</option>
                     ))}
                 </select>

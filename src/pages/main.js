@@ -201,21 +201,30 @@ export default function Main(props){
 
         const data = {  name: form.fullName,
                         email: form.email,
-                        pw: form.pw,
+                        password: form.pw,
                         occupation: form.occupation,
                         state: form.state
         }
 
        if(validateEmail(data.email)){
             console.log(data); // Replace with POST call
-            //navigate('/accountCreated');
+
+            try{
+                submitCompletedForm(data).then(() =>{
+                    navigate('/accountCreated');
+                });
+            } catch{
+                console.log('Submission Error')
+            }
+
+            
 
        } else {
             setErrorInEmail(true);
             setForm({
                 email: '',
-                pw: data.pw,
-                pwc: data.pw,
+                pw: data.password,
+                pwc: data.password,
                 fullName: data.name,
                 state: data.state,
                 occupation: data.occupation
