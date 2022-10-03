@@ -4,14 +4,11 @@
     font-size: 20px;
     margin: 10px;
 
-    
-   
     label {
         display: flex;
         flex-direction: row;
         justify-content: flex-end;
         align-items: center;
-              
     }
 
     #pwc{
@@ -33,8 +30,6 @@
         width: 180px;
     }
 
-    
-
 
     .defInput, .defInput:focus {
         border: 1px solid black;
@@ -50,7 +45,14 @@
         border-color: lightcoral;
         outline-color: darkred;
     }
+    
+    .emailError{
+        border-color: lightcoral;
+        outline-color: darkred;
+    }
 }
+
+
 
 
 button{
@@ -73,7 +75,31 @@ button{
 
 button:disabled{
     opacity: 45%;
+    cursor: default;
 }
+
+footer{
+    width:100%;
+    background-color: #2f0c38;
+
+    p{
+        color: white;
+        text-align: center;
+    }
+
+    a{
+        color: #f8a619;
+    }
+}
+    
     
 
 
+@media only screen and (max-width: 425px){
+    .TextInput, .PassInput, .DropInput{
+        
+        label{
+            font-size: 14px;
+        }
+    }
+}

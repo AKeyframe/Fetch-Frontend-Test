@@ -1,21 +1,26 @@
 import '../App.scss'
 import './css/main.scss'
 import { useState, useEffect } from 'react';
-// import { Link } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 //components
 import TextInput from '../components/TextInput';
 import PassInput from '../components/PassInput';
 import DropInput from '../components/DropInput';
 import SignupButton from '../components/SignupButton';
+import Footer from '../components/Footer.js';
 
 //Services
-import { getOccAndStates, submitCompletedForm } from '../services/apiServices';
+import { getOccAndStates, 
+         submitCompletedForm } from '../services/fetchAPIServices';
 
 
 export default function Main(props){
+
+    let navigate = useNavigate();
     
     const [validPass, setValidPass] = useState(false);
+    const [errorInEmail, setErrorInEmail] = useState(false);
     const [passErrors, setPassErrors] = useState([]);
     const [validForm, setValidForm] = useState(false);
     
@@ -51,8 +56,17 @@ export default function Main(props){
 
     
     function handleChange(e){
+
+        //If the user has changed the email field after
+        //recieving the email error, remove error and red
+        if(e.target.name === 'email'){
+            if(errorInEmail){
+                setErrorInEmail(false);
+            }
+        }
+
         if(e.target.name === 'pw' || e.target.name === 'pwc'){
-            handlePassword(e);
+            validatePassword(e);
         }
 
         setForm(prev => ({
@@ -62,7 +76,7 @@ export default function Main(props){
     }
 
 
-    function handlePassword(e){
+    function validatePassword(e){
         //Check which password field the user used
         if(e.target.name === 'pw'){
             
@@ -111,7 +125,8 @@ export default function Main(props){
                 }
                 
             } 
-
+        
+        //If the confirmation field is being used
         } else if(e.target.name === 'pwc'){
             //Clear errors if empty
             
@@ -161,38 +176,60 @@ export default function Main(props){
                 
             } 
         } 
-    }//handlePassword()
+    }//validatePassword()
 
-
+    function validateEmail(email){
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
 
     function checkForm(){
         if(form.occupation !== '0' && form.state !== '0'){
             if(validPass){
-                if(form.email !==''){ //Email validation in handleSubmit()
+                //Email Validation in handleSubmit()
+                if(form.email !==''){ 
                     if(form.fullName !== ''){
                         setValidForm(true);
-                    }
-                }
-            }
-        }
+                    
+                    } else setValidForm(false);
+                } else setValidForm(false);
+            } else setValidForm(false);
+        } else setValidForm(false);
     }//checkForm()
 
     function handleSubmit(e){
         e.preventDefault(); 
-        //Add email validation code
 
-        const submission = {name: form.fullName,
-                            email: form.email,
-                            password: form.pw,
-                            occupation: form.occupation,
-                            state: form.state
+        const data = {  name: form.fullName,
+                        email: form.email,
+                        pw: form.pw,
+                        occupation: form.occupation,
+                        state: form.state
         }
 
-        console.log(submission);
+       if(validateEmail(data.email)){
+            console.log(data); // Replace with POST call
+            //navigate('/accountCreated');
+
+       } else {
+            setErrorInEmail(true);
+            setForm({
+                email: '',
+                pw: data.pw,
+                pwc: data.pw,
+                fullName: data.name,
+                state: data.state,
+                occupation: data.occupation
+            });
+       }
+
+        
     }
 
     return(
         <main>
+            {/*With something more complicated I'd create a  
+               nav bar compent and have it in App.js, to not reuse code
+               With it only being one image I let it be for this */}
             <img src='fetch-frontend-test.png' 
                  alt='Fetch Frontend Test' 
                  width='360px' height= '110px'/>
@@ -203,6 +240,7 @@ export default function Main(props){
                                 formName='email'
                                 email='true'
                                 form={form}
+                                errorInEmail={errorInEmail}
                                 handleChange= {handleChange}/>
 
                     <PassInput  DisplayName='Password'
@@ -235,6 +273,8 @@ export default function Main(props){
                                     setValidForm={setValidForm}/>
                 </div>
             </form>
+
+            <Footer />
         </main>
     )// return
 }// main()
